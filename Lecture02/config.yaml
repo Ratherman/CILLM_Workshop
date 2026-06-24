@@ -1,0 +1,40 @@
+provider: cillm_test
+
+providers:
+  cillm_test:
+    base_url: https://cillmtest.china-airlines.com/v1
+    api_key_env: CILLM_API_KEY
+    model: openai/gpt-oss-120b
+    headers:
+      X-User-ID: admin
+      X-Platform: edu-demo
+      X-Agent: cal-edu-notebook
+
+  cillm_portal:
+    base_url: http://localhost:8002/v1
+    api_key_env: CILLM_API_KEY
+    model: openai/gpt-oss-120b
+    headers:
+      X-User-ID: demo-user
+      X-Platform: edu-demo
+      X-Agent: basic-llm-demo
+
+  cillm_llm:
+    base_url: http://localhost:8000/v1
+    api_key: local
+    model: openai/gpt-oss-120b
+
+  groq:
+    base_url: https://api.groq.com/openai/v1
+    api_key_env: groq_api_key
+    model: llama-3.3-70b-versatile
+
+  openai:
+    base_url: https://api.openai.com/v1
+    api_key_env: OPENAI_API_KEY
+    model: gpt-4o
+
+generation:
+  temperature: 1.0
+  max_tokens: 1024
+  presence_penalty: 1.1

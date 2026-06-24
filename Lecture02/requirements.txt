@@ -1,0 +1,11 @@
+openai==2.32.0
+PyYAML==6.0.3
+python-dotenv==1.2.2
+opentelemetry-api==1.41.0
+opentelemetry-sdk==1.41.0
+ipykernel==7.1.0
+notebook>=7.2,<8
+jupyterlab>=4.2,<5
+jupyter-server>=2.14,<3
+nbconvert>=7.16,<8
+pydantic==2.13.4

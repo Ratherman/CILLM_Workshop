@@ -1,0 +1,51 @@
+[
+  {
+    "training_type": "dangerous_goods",
+    "display_name_zh": "危險物品訓練",
+    "valid_months": 24,
+    "renewal_notice_days": 60,
+    "keywords": ["危險物品", "DG", "dangerous goods"]
+  },
+  {
+    "training_type": "aviation_security",
+    "display_name_zh": "航空保安訓練",
+    "valid_months": 12,
+    "renewal_notice_days": 45,
+    "keywords": ["航空保安", "保安訓練", "security"]
+  },
+  {
+    "training_type": "safety_management_system",
+    "display_name_zh": "安全管理系統訓練",
+    "valid_months": 36,
+    "renewal_notice_days": 90,
+    "keywords": ["安全管理", "SMS", "safety management"]
+  },
+  {
+    "training_type": "ground_service",
+    "display_name_zh": "地勤服務訓練",
+    "valid_months": 18,
+    "renewal_notice_days": 60,
+    "keywords": ["地勤服務", "旅客服務", "ground service"]
+  },
+  {
+    "training_type": "ramp_safety",
+    "display_name_zh": "機坪安全訓練",
+    "valid_months": 12,
+    "renewal_notice_days": 45,
+    "keywords": ["機坪安全", "ramp safety", "apron"]
+  },
+  {
+    "training_type": "maintenance_human_factors",
+    "display_name_zh": "修護人因訓練",
+    "valid_months": 24,
+    "renewal_notice_days": 60,
+    "keywords": ["修護人因", "人因訓練", "maintenance human factors"]
+  },
+  {
+    "training_type": "cabin_safety_recurrent",
+    "display_name_zh": "空服安全複訓",
+    "valid_months": 12,
+    "renewal_notice_days": 60,
+    "keywords": ["空服安全", "客艙安全", "cabin safety", "安全複訓"]
+  }
+]
