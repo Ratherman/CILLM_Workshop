@@ -1,6 +1,7 @@
 # CAL edu
 - 簡報連結：https://drive.google.com/file/d/1x9goDDxb06yWhYMdb5HprpIP2V4K2ev2/view?usp=sharing
-- API 網頁：https://cillmtest.china-airlines.com
+- API 網頁：https://cillmtest.china-airlines.com/docs
+- CILLM_API_KEY 和第一次一樣
 
 
 目前提供兩個 Skills：
