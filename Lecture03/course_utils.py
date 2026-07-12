@@ -138,7 +138,8 @@ def call_chat(model, messages, max_tokens=800, timeout=60, response_format=None)
         r = requests.post(base.rstrip("/") + "/chat/completions", headers=headers, json=payload, timeout=timeout)
         r.raise_for_status(); return r.json()["choices"][0]["message"]["content"]
     except requests.RequestException as e:
-        raise RuntimeError(f"CILLM API 呼叫失敗：{e}") from e
+        body = getattr(getattr(e, "response", None), "text", "")
+        raise RuntimeError(f"{config['provider']} API 呼叫失敗：{e}" + (f"；response={body[:500]}" if body else "")) from e
 
 def get_current_key_scopes(timeout=30):
     """查詢目前 CILLM Key 實際具備的 RBAC scopes。"""
@@ -181,11 +182,24 @@ def ask_gpt_oss(question, context="", instruction="請使用繁體中文簡潔�
     return call_chat("openai/gpt-oss-120b", messages, max_tokens=max_tokens)
 def analyze_image(path, question="請用繁體中文描述圖片"):
     config = get_llm_config()
-    model = GEMMA_MODEL if config["provider"] == "cillm" else config["model"]
     mime = "image/png" if str(path).lower().endswith("png") else "image/jpeg"
     uri = f"data:{mime};base64," + base64.b64encode(Path(path).read_bytes()).decode()
-    content = call_chat(model, [{"role":"user","content":[{"type":"text","text":question},{"type":"image_url","image_url":{"url":uri}}]}])
-    return normalize("image", path, content)
+    content_blocks = [{"type":"text","text":question},{"type":"image_url","image_url":{"url":uri}}]
+    if config["provider"] == "openai":
+        content = call_chat(config["model"], [{"role":"user","content":content_blocks}])
+        return normalize("image", path, content, provider="openai", model=config["model"])
+
+    # 現行遠端 CILLM schema 僅接受字串；NVIDIA NIM VLM 官方支援以 HTML img tag
+    # 相容地傳入 URL 或 Base64 image。後端更新後可設 blocks 使用原生 content blocks。
+    vision_format = os.getenv("CILLM_VISION_FORMAT", "html").strip().lower()
+    if vision_format == "blocks":
+        message_content = content_blocks
+    elif vision_format == "html":
+        message_content = f'{question}\n<img src="{uri}" />'
+    else:
+        raise ValueError("CILLM_VISION_FORMAT 只允許 html 或 blocks")
+    content = call_chat(GEMMA_MODEL, [{"role":"user","content":message_content}])
+    return normalize("image", path, content, provider="cillm", model=GEMMA_MODEL, vision_format=vision_format)
 
 def math_tool(a, op, b):
     ops = {"+": lambda: a+b, "-": lambda: a-b, "*": lambda: a*b, "/": lambda: a/b}
