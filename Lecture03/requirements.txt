@@ -1,0 +1,12 @@
+jupyter>=1.0
+nbformat>=5.9
+nbconvert>=7.10
+ipykernel>=6.0
+pandas>=2.0
+openpyxl>=3.1
+python-dotenv>=1.0
+requests>=2.31
+faster-whisper>=1.0
+cryptography>=42.0
+numpy>=1.26
+Pillow>=10.0
