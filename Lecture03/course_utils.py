@@ -189,8 +189,7 @@ def analyze_image(path, question="請用繁體中文描述圖片"):
         content = call_chat(config["model"], [{"role":"user","content":content_blocks}])
         return normalize("image", path, content, provider="openai", model=config["model"])
 
-    # 現行遠端 CILLM schema 僅接受字串；NVIDIA NIM VLM 官方支援以 HTML img tag
-    # 相容地傳入 URL 或 Base64 image。後端更新後可設 blocks 使用原生 content blocks。
+    # 現行遠端 CILLM schema 僅接受字串；html 模式不要求重新部署 gateway。
     vision_format = os.getenv("CILLM_VISION_FORMAT", "html").strip().lower()
     if vision_format == "blocks":
         message_content = content_blocks
