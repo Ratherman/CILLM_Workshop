@@ -1,7 +1,7 @@
 # LLM 多模態實戰
 
-教材連結：https://drive.google.com/file/d/1U5jDH6h1Z_ZCcWq9_7g2erxeDFJGSKlq/view?usp=drive_link
-六章依序疊加：資料標準化 → GPT-OSS → Tool → Resource → AI Agent → RBAC 與 AES-256-GCM。
+* 教材連結：https://drive.google.com/file/d/1U5jDH6h1Z_ZCcWq9_7g2erxeDFJGSKlq/view?usp=drive_link
+* 六章依序疊加：資料標準化 → GPT-OSS → Tool → Resource → AI Agent → RBAC 與 AES-256-GCM。
 
 ## 快速開始（Windows / Anaconda）
 
