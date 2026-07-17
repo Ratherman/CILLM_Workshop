@@ -127,11 +127,22 @@ h2 {
 }
 
 .subtitle,
+.launch-hint,
 .section-heading p,
 .chat-toolbar p,
 .composer-footer p {
   margin-bottom: 0;
   color: var(--color-subtle);
+}
+
+.launch-hint {
+  margin: 8px 0 0;
+  font-size: 0.86rem;
+}
+
+.launch-hint code {
+  color: #bbf7d0;
+  font-size: 0.86rem;
 }
 
 .settings-card,

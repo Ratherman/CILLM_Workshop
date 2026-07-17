@@ -38,6 +38,11 @@ let history = [];
 let latestHtml = "";
 let isSending = false;
 
+if (window.location.protocol === "file:") {
+  showStatus("請不要直接雙擊 index.html；請在本資料夾執行 python server.py。", true);
+  setConnectionState("error", "需要本機 Server");
+}
+
 elements.form.addEventListener("submit", handleSubmit);
 elements.clear.addEventListener("click", clearConversation);
 elements.copyLatest.addEventListener("click", () => copyText(latestHtml, elements.copyLatest));
@@ -114,17 +119,14 @@ async function requestChatCompletion({ apiKey, baseUrl, model, messages }) {
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const response = await fetch(`${baseUrl}/chat/completions`, {
+    const response = await fetch("/api/chat", {
       method: "POST",
-      mode: "cors",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "X-User-ID": "workshop-vibe-coder",
-        "X-Platform": "cillm-workshop",
-        "X-Agent": "lecture04-vibe-coding-helper",
       },
       body: JSON.stringify({
+        api_key: apiKey,
+        base_url: baseUrl,
         model,
         messages,
         max_tokens: 5000,
@@ -319,10 +321,7 @@ function friendlyError(error) {
     return `HTTP ${error.status}：${error.message}`;
   }
   if (error instanceof TypeError && /fetch/i.test(error.message)) {
-    return (
-      "瀏覽器無法連線 CILLM Gateway。請確認網路與網址；若主控台顯示 CORS，" +
-      "代表 Portal 尚未允許從 file:// 頁面呼叫。"
-    );
+    return "無法連線本機代理。請確認已在本資料夾執行 python server.py，並從它開啟的頁面操作。";
   }
   return error?.message || "發生未預期錯誤，請稍後再試。";
 }
