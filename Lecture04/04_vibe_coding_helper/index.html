@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="使用 CILLM GPU Server 快速產生可複製的 HTML 程式碼。"
+    />
+    <title>CILLM Vibe Coding Helper</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#composer">跳到輸入區</a>
+
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">CILLM GPU SERVER</p>
+          <h1>Vibe Coding Helper</h1>
+          <p class="subtitle">描述你想要的網頁，讓 gpt-oss-120b 幫你產生 HTML。</p>
+        </div>
+        <button id="clearButton" class="button button-secondary" type="button">
+          清除對話
+        </button>
+      </header>
+
+      <section class="settings-card" aria-labelledby="settingsTitle">
+        <div class="section-heading">
+          <div>
+            <h2 id="settingsTitle">連線設定</h2>
+            <p>API Key 只保留在目前分頁的記憶體，不會儲存到瀏覽器。</p>
+          </div>
+          <span id="connectionBadge" class="status-badge">尚未連線</span>
+        </div>
+
+        <div class="settings-grid">
+          <div class="field field-key">
+            <label for="apiKeyInput">CILLM API Key</label>
+            <div class="input-with-action">
+              <input
+                id="apiKeyInput"
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="貼上 CILLM_API_KEY"
+              />
+              <button
+                id="toggleKeyButton"
+                class="input-action"
+                type="button"
+                aria-label="顯示 API Key"
+              >
+                顯示
+              </button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="baseUrlInput">CILLM Base URL</label>
+            <input
+              id="baseUrlInput"
+              type="url"
+              value="https://cillmtest.china-airlines.com/v1"
+              spellcheck="false"
+            />
+          </div>
+
+          <div class="field">
+            <label for="modelInput">Model</label>
+            <input
+              id="modelInput"
+              type="text"
+              value="openai/gpt-oss-120b"
+              spellcheck="false"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="chat-card" aria-labelledby="chatTitle">
+        <div class="chat-toolbar">
+          <div>
+            <h2 id="chatTitle">聊天與許願</h2>
+            <p>目前對話會保留最近 6 輪，方便逐步修改同一個網頁。</p>
+          </div>
+          <button
+            id="copyLatestButton"
+            class="button button-secondary"
+            type="button"
+            disabled
+          >
+            複製最新 HTML
+          </button>
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite" aria-label="聊天紀錄">
+          <article class="message message-assistant">
+            <div class="message-meta">CILLM 助手</div>
+            <div class="message-body">
+              <p>告訴我你想做什麼網頁。例如：「幫我做一個深色航班延誤儀表板，要有三張統計卡片。」</p>
+            </div>
+          </article>
+        </div>
+
+        <div id="statusMessage" class="request-status" role="status" aria-live="polite"></div>
+
+        <form id="composer" class="composer">
+          <label for="promptInput">你的願望</label>
+          <textarea
+            id="promptInput"
+            rows="4"
+            placeholder="描述頁面用途、顏色、區塊與互動效果……"
+            required
+          ></textarea>
+          <div class="composer-footer">
+            <p>Enter 送出，Shift + Enter 換行。請勿輸入真實個資或機密。</p>
+            <button id="sendButton" class="button button-primary" type="submit">
+              送出願望
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <template id="messageTemplate">
+      <article class="message">
+        <div class="message-meta"></div>
+        <div class="message-body"></div>
+      </article>
+    </template>
+
+    <template id="codeTemplate">
+      <section class="code-block">
+        <div class="code-header">
+          <span class="code-language"></span>
+          <button class="copy-code-button" type="button">複製程式碼</button>
+        </div>
+        <pre><code></code></pre>
+      </section>
+    </template>
+  </body>
+</html>
